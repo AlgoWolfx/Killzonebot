@@ -40,11 +40,7 @@ async function checkAndSendKillzoneMessage() {
   
   console.log(`Şu anki zaman (Lizbon): ${currentHour}:${currentMinute} (${currentDay}. gün)`);
   
-  // Hafta sonu kontrolü
-  if (currentDay === 0 || currentDay === 6) {
-    console.log('Hafta sonu - killzone yok');
-    return;
-  }
+  // Test için hafta sonu kontrolü kaldırıldı
   
   // Killzone zamanlarını kontrol et
   Object.entries(KILLZONE_TIMES).forEach(async ([key, zone]) => {

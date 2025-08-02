@@ -28,9 +28,9 @@ const KILLZONE_TIMES = {
 
 // Bot Konfigürasyonu
 const BOT_CONFIG = {
-  timezone: "America/New_York",
-  warningMinutes: 10, // 10 dakika öncesi uyarı
-  workDays: [1, 2, 3, 4, 5], // Pazartesi-Cuma
+  timezone: "Europe/Lisbon",
+  warningMinutes: 5, // 5 dakika öncesi uyarı (Portekiz için)
+  workDays: [0, 1, 2, 3, 4, 5, 6], // Hafta sonu dahil (test için)
   retryAttempts: 3
 };
 
