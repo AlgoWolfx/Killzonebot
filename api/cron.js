@@ -33,10 +33,12 @@ async function sendTelegramMessage(message) {
 
 // Killzone kontrolü ve mesaj gönderme
 async function checkAndSendKillzoneMessage() {
-  const now = moment().tz('GMT');
+  const now = moment().tz('Europe/Istanbul'); // Türkiye saati
   const currentHour = now.hour();
   const currentMinute = now.minute();
   const currentDay = now.day(); // 0=Pazar, 1=Pazartesi
+  
+  console.log(`Şu anki zaman: ${currentHour}:${currentMinute} (${currentDay}. gün)`);
   
   // Hafta sonu kontrolü
   if (currentDay === 0 || currentDay === 6) {
@@ -48,6 +50,8 @@ async function checkAndSendKillzoneMessage() {
   Object.entries(KILLZONE_TIMES).forEach(async ([key, zone]) => {
     const [startHour, startMinute] = zone.start.split(':').map(Number);
     const [endHour, endMinute] = zone.end.split(':').map(Number);
+    
+    console.log(`Kontrol edilen killzone: ${zone.name} - ${zone.start}`);
     
     // 10 dakika öncesi uyarı
     if (currentHour === startHour && currentMinute === (startMinute - 10)) {
