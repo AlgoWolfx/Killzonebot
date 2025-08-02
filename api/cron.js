@@ -3,22 +3,26 @@ const moment = require('moment-timezone');
 const { KILLZONE_TIMES, BOT_CONFIG } = require('../config');
 const { 
   getKillzoneStartMessage, 
-  getWarningMessage 
+  getWarningMessage,
+  getAllKillzonesMessage, 
+  getNextKillzoneMessage, 
+  getStatusMessage 
 } = require('../utils/messages');
 
 // Telegram mesaj gönderme fonksiyonu
-async function sendTelegramMessage(message) {
+async function sendTelegramMessage(message, chatId = null) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.CHAT_ID;
+  const defaultChatId = process.env.TELEGRAM_CHAT_ID;
+  const targetChatId = chatId || defaultChatId;
   
-  if (!token || !chatId) {
+  if (!token || !targetChatId) {
     console.error('Telegram token veya chat ID eksik');
     return false;
   }
   
   try {
     const response = await axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
-      chat_id: chatId,
+      chat_id: targetChatId,
       text: message,
       parse_mode: 'HTML'
     });
@@ -28,6 +32,89 @@ async function sendTelegramMessage(message) {
   } catch (error) {
     console.error('Mesaj gönderme hatası:', error.message);
     return false;
+  }
+}
+
+// Komut işleme fonksiyonu
+async function handleCommand(chatId, command) {
+  let message = '';
+  
+  switch (command) {
+    case '/killzones':
+      message = getAllKillzonesMessage();
+      break;
+      
+    case '/next':
+      message = getNextKillzoneMessage();
+      break;
+      
+    case '/status':
+      message = getStatusMessage();
+      break;
+      
+    case '/start':
+      message = `🤖 Welcome to Killzone Bot!
+
+📋 Available commands:
+/killzones - Show all killzone times
+/next - Show next killzone time
+/status - Check bot status
+
+⚠️ Bot will automatically send you messages during killzone times.`;
+      break;
+      
+    default:
+      message = `❓ Unknown command: ${command}
+
+📋 Available commands:
+/killzones - Show all killzone times
+/next - Show next killzone time
+/status - Check bot status`;
+  }
+  
+  await sendTelegramMessage(message, chatId);
+}
+
+// Telegram polling fonksiyonu
+async function pollTelegramUpdates() {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  
+  if (!token) {
+    console.error('Telegram token eksik');
+    return;
+  }
+  
+  try {
+    // Son mesajları al
+    const response = await axios.get(`https://api.telegram.org/bot${token}/getUpdates`);
+    
+    if (response.data.ok && response.data.result.length > 0) {
+      const updates = response.data.result;
+      
+      for (const update of updates) {
+        if (update.message && update.message.text) {
+          const text = update.message.text;
+          const chatId = update.message.chat.id;
+          
+          console.log('Gelen mesaj:', { chatId, text });
+          
+          // Komut işleme
+          if (text.startsWith('/')) {
+            await handleCommand(chatId, text);
+          } else {
+            // Normal mesaj için yardım
+            await sendTelegramMessage(`💬 Hello! 
+
+📋 Available commands:
+/killzones - Show all killzone times
+/next - Show next killzone time
+/status - Check bot status`, chatId);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Polling hatası:', error);
   }
 }
 
@@ -68,10 +155,15 @@ async function checkAndSendKillzoneMessage() {
 // Vercel serverless function
 module.exports = async (req, res) => {
   try {
+    // Killzone kontrolü
     await checkAndSendKillzoneMessage();
+    
+    // Telegram polling (komutları kontrol et)
+    await pollTelegramUpdates();
+    
     res.status(200).json({ 
       success: true, 
-      message: 'Killzone kontrolü tamamlandı',
+      message: 'Killzone kontrolü ve polling tamamlandı',
       timestamp: moment().tz('America/New_York').format()
     });
   } catch (error) {
