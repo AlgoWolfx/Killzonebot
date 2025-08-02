@@ -1,34 +1,34 @@
-// Killzone Zamanları (GMT) - TEST ZAMANLARI
+// Killzone Zamanları (Portekiz Lizbon) - TEST ZAMANLARI
 const KILLZONE_TIMES = {
   test1: {
     name: "Test Killzone 1",
-    start: "22:06",
-    end: "22:08",
-    timezone: "Europe/London"
+    start: "22:15",
+    end: "22:17",
+    timezone: "Europe/Lisbon"
   },
   test2: {
     name: "Test Killzone 2", 
-    start: "22:07",
-    end: "22:09",
-    timezone: "Europe/London"
+    start: "22:16",
+    end: "22:18",
+    timezone: "Europe/Lisbon"
   },
   test3: {
     name: "Test Killzone 3",
-    start: "22:08", 
-    end: "22:10",
-    timezone: "Europe/London"
+    start: "22:17", 
+    end: "22:19",
+    timezone: "Europe/Lisbon"
   },
   test4: {
     name: "Test Killzone 4",
-    start: "22:09",
-    end: "22:11", 
-    timezone: "Europe/London"
+    start: "22:18",
+    end: "22:20", 
+    timezone: "Europe/Lisbon"
   },
   test5: {
     name: "Test Killzone 5",
-    start: "22:10",
-    end: "22:12",
-    timezone: "Europe/London"
+    start: "22:19",
+    end: "22:21",
+    timezone: "Europe/Lisbon"
   }
 };
 
