@@ -42,23 +42,23 @@ async function handleCommand(chatId, command) {
       break;
       
     case '/start':
-      message = `🤖 Killzone Bot'a hoş geldiniz!
+      message = `🤖 Welcome to Killzone Bot!
 
-📋 Kullanılabilir komutlar:
-/killzones - Tüm killzone zamanlarını göster
-/next - Sonraki killzone zamanını göster
-/status - Bot durumunu kontrol et
+📋 Available commands:
+/killzones - Show all killzone times
+/next - Show next killzone time
+/status - Check bot status
 
-⚠️ Bot otomatik olarak killzone zamanlarında size mesaj gönderecek.`;
+⚠️ Bot will automatically send you messages during killzone times.`;
       break;
       
     default:
-      message = `❓ Bilinmeyen komut: ${command}
+      message = `❓ Unknown command: ${command}
 
-📋 Kullanılabilir komutlar:
-/killzones - Tüm killzone zamanlarını göster
-/next - Sonraki killzone zamanını göster
-/status - Bot durumunu kontrol et`;
+📋 Available commands:
+/killzones - Show all killzone times
+/next - Show next killzone time
+/status - Check bot status`;
   }
   
   await sendTelegramMessage(chatId, message);
@@ -66,12 +66,8 @@ async function handleCommand(chatId, command) {
 
 // Vercel serverless function
 module.exports = async (req, res) => {
-  console.log('Webhook çağrıldı:', req.method, req.url);
-  
-  // Güvenlik: Telegram'dan gelen istekleri doğrula
-  const telegramIPs = ['149.154.160.0/20', '91.108.4.0/22'];
-  const clientIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  
+  console.log('Webhook called:', req.method, req.url);
+
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -90,31 +86,31 @@ module.exports = async (req, res) => {
     const { message } = req.body;
     
     if (!message) {
-      console.log('Message yok:', req.body);
+      console.log('No message:', req.body);
       return res.status(400).json({ error: 'Message is required' });
     }
     
     const chatId = message.chat.id;
     const text = message.text || '';
     
-    console.log('Gelen mesaj:', { chatId, text });
+    console.log('Received message:', { chatId, text });
     
     // Komut işleme
     if (text.startsWith('/')) {
       await handleCommand(chatId, text);
     } else {
       // Normal mesaj için yardım
-      await sendTelegramMessage(chatId, `💬 Merhaba! 
+      await sendTelegramMessage(chatId, `💬 Hello! 
 
-📋 Kullanılabilir komutlar:
-/killzones - Tüm killzone zamanlarını göster
-/next - Sonraki killzone zamanını göster
-/status - Bot durumunu kontrol et`);
+📋 Available commands:
+/killzones - Show all killzone times
+/next - Show next killzone time
+/status - Check bot status`);
     }
     
     res.status(200).json({ success: true });
   } catch (error) {
-    console.error('Webhook hatası:', error);
+    console.error('Webhook error:', error);
     res.status(500).json({ error: error.message });
   }
 }; 
