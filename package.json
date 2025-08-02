@@ -1,0 +1,23 @@
+{
+  "name": "killzone-bot",
+  "version": "1.0.0",
+  "description": "ICT Killzone Hatırlatma Botu",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Build completed'",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^17.2.1",
+    "moment-timezone": "^0.5.43",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
