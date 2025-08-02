@@ -76,7 +76,7 @@ module.exports = async (req, res) => {
     res.status(200).json({ 
       success: true, 
       message: 'Killzone kontrolü tamamlandı',
-      timestamp: moment().tz('America/New_York').format()
+      timestamp: moment().tz('Europe/Lisbon').format()
     });
   } catch (error) {
     console.error('Cron job hatası:', error);
