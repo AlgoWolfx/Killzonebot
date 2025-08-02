@@ -1,22 +1,34 @@
-// Killzone Zamanları (GMT)
+// Killzone Zamanları (GMT) - TEST ZAMANLARI
 const KILLZONE_TIMES = {
-  london: {
-    name: "London Killzone",
-    start: "08:00",
-    end: "10:00",
+  test1: {
+    name: "Test Killzone 1",
+    start: "22:06",
+    end: "22:08",
     timezone: "Europe/London"
   },
-  newyork: {
-    name: "New York Killzone", 
-    start: "13:00",
-    end: "15:00",
-    timezone: "America/New_York"
+  test2: {
+    name: "Test Killzone 2", 
+    start: "22:07",
+    end: "22:09",
+    timezone: "Europe/London"
   },
-  tokyo: {
-    name: "Tokyo Killzone",
-    start: "00:00", 
-    end: "02:00",
-    timezone: "Asia/Tokyo"
+  test3: {
+    name: "Test Killzone 3",
+    start: "22:08", 
+    end: "22:10",
+    timezone: "Europe/London"
+  },
+  test4: {
+    name: "Test Killzone 4",
+    start: "22:09",
+    end: "22:11", 
+    timezone: "Europe/London"
+  },
+  test5: {
+    name: "Test Killzone 5",
+    start: "22:10",
+    end: "22:12",
+    timezone: "Europe/London"
   }
 };
 
