@@ -2,20 +2,14 @@
 const KILLZONE_TIMES = {
   test1: {
     name: "Test Killzone 1",
-    start: "22:45",
-    end: "22:47",
+    start: "22:40",
+    end: "22:42",
     timezone: "Europe/Lisbon"
   },
   test2: {
     name: "Test Killzone 2",
-    start: "22:50",
-    end: "22:52",
-    timezone: "Europe/Lisbon"
-  },
-  test3: {
-    name: "Test Killzone 3",
-    start: "22:55",
-    end: "22:57",
+    start: "22:42",
+    end: "22:44",
     timezone: "Europe/Lisbon"
   }
 };
