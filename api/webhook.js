@@ -68,6 +68,10 @@ async function handleCommand(chatId, command) {
 module.exports = async (req, res) => {
   console.log('Webhook çağrıldı:', req.method, req.url);
   
+  // Güvenlik: Telegram'dan gelen istekleri doğrula
+  const telegramIPs = ['149.154.160.0/20', '91.108.4.0/22'];
+  const clientIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');

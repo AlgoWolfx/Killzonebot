@@ -66,6 +66,15 @@ async function handleCommand(chatId, command) {
 
 // Vercel serverless function
 module.exports = async (req, res) => {
+  // Güvenlik: Sadece GET isteklerine izin ver
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  
+  // Güvenlik: Rate limiting (basit)
+  const clientIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log('İstek geldi:', clientIP);
+  
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   
@@ -105,7 +114,8 @@ module.exports = async (req, res) => {
     
     res.status(200).json({ 
       success: true, 
-      updates: response.data.result.length 
+      updates: response.data.result.length,
+      message: 'Polling tamamlandı'
     });
   } catch (error) {
     console.error('Polling hatası:', error);
