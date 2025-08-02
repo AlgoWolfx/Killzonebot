@@ -49,11 +49,11 @@ async function checkAndSendKillzoneMessage() {
     
     console.log(`Kontrol edilen killzone: ${zone.name} - ${zone.start}`);
     
-    // 5 dakika öncesi uyarı (Portekiz için)
-    if (currentHour === startHour && currentMinute === (startMinute - 5)) {
+    // 10 dakika öncesi uyarı (test için)
+    if (currentHour === startHour && currentMinute === (startMinute - 10)) {
       const message = getWarningMessage(zone.name, zone.start);
       await sendTelegramMessage(message);
-      console.log(`${zone.name} 5 dakika uyarısı gönderildi`);
+      console.log(`${zone.name} 10 dakika uyarısı gönderildi`);
     }
     
     // Killzone başlangıç mesajı
