@@ -1,34 +1,34 @@
 // Killzone Zamanları (Portekiz Lizbon) - CANLI TEST ZAMANLARI
 const KILLZONE_TIMES = {
-  // Canlı test zamanları - Şu anki saat 17:40'a göre ayarlandı
-  london_open: {
-    name: "London Open",
-    start: "17:45",
-    end: "17:50",
+  // Canlı test zamanları - Şu anki saat 17:48'e göre güncellendi
+  test_now: {
+    name: "Test Şimdi",
+    start: "17:49",
+    end: "17:51",
     timezone: "Europe/Lisbon"
   },
-  ny_open: {
-    name: "New York Open",
+  test_1min: {
+    name: "Test 1 Dakika",
     start: "17:50",
-    end: "17:55",
+    end: "17:52",
     timezone: "Europe/Lisbon"
   },
-  tokyo_open: {
-    name: "Tokyo Open",
-    start: "17:55",
-    end: "18:00",
+  test_2min: {
+    name: "Test 2 Dakika",
+    start: "17:51",
+    end: "17:53",
     timezone: "Europe/Lisbon"
   },
-  london_close: {
-    name: "London Close",
-    start: "18:00",
-    end: "18:05",
+  test_5min: {
+    name: "Test 5 Dakika",
+    start: "17:54",
+    end: "17:56",
     timezone: "Europe/Lisbon"
   },
-  ny_close: {
-    name: "New York Close",
-    start: "18:05",
-    end: "18:10",
+  test_10min: {
+    name: "Test 10 Dakika",
+    start: "17:59",
+    end: "18:01",
     timezone: "Europe/Lisbon"
   }
 };
