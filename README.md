@@ -35,6 +35,11 @@ ICT teknikleri ile trade eden kullanıcılar için killzone zamanlarını hatır
    vercel --prod
    ```
 
+4. **Cronjob.org Ayarları**
+   - `cronjob-settings.md` dosyasındaki ayarları kullan
+   - Test için: "Every 1 minute(s)"
+   - Production için: Custom crontab expression
+
 ## Kullanım
 
 Bot'a şu komutları gönderebilirsiniz:

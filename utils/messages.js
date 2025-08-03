@@ -17,11 +17,15 @@ function getKillzoneStartMessage(timezone, currentTime) {
 
 // 5 dakika öncesi uyarı mesajı (Portekiz için)
 function getWarningMessage(timezone, startTime) {
-  const time = moment(startTime).tz('Europe/Lisbon').format('HH:mm');
+  // startTime format düzeltmesi (HH:MM formatını doğru şekilde parse et)
+  const [hours, minutes] = startTime.split(':').map(Number);
+  const today = new Date();
+  const timeDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes);
+  const time = moment(timeDate).tz('Europe/Lisbon').format('HH:mm');
   
   return `⚠️ KILLZONE YAKLAŞIYOR! ⚠️
 
-⏰ ${timezone} Killzone başlamasına 5 dakika
+⏰ ${timezone} Killzone başlamasına 10 dakika
 🕐 Başlangıç: ${time} (Lisbon Time)
 
 📱 Hazırlık yapın!`;

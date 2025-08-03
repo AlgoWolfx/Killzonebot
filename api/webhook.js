@@ -14,12 +14,45 @@ async function sendTelegramMessage(chatId, message) {
       chat_id: chatId,
       text: message,
       parse_mode: 'HTML'
+    }, {
+      timeout: 10000, // 10 saniye timeout
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'KillzoneBot/1.0'
+      }
     });
     
     console.log('Komut yanıtı gönderildi:', response.data);
     return true;
   } catch (error) {
-    console.error('Mesaj gönderme hatası:', error.message);
+    console.error('Mesaj gönderme hatası:', error.response?.data || error.message);
+    
+    // Retry mekanizması
+    if (error.code === 'ECONNRESET' || error.code === 'ETIMEDOUT' || error.message.includes('socket hang up')) {
+      console.log('Bağlantı hatası, 3 saniye sonra tekrar deneniyor...');
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      try {
+        const retryResponse = await axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'HTML'
+        }, {
+          timeout: 15000, // Retry'da daha uzun timeout
+          headers: {
+            'Content-Type': 'application/json',
+            'User-Agent': 'KillzoneBot/1.0'
+          }
+        });
+        
+        console.log('Retry başarılı, komut yanıtı gönderildi:', retryResponse.data);
+        return true;
+      } catch (retryError) {
+        console.error('Retry da başarısız:', retryError.response?.data || retryError.message);
+        return false;
+      }
+    }
+    
     return false;
   }
 }
