@@ -2,14 +2,14 @@
 
 ## 🔗 Cronjob URL
 ```
-https://killzonebot-l154ctke6-geraltxeths-projects.vercel.app/api/cron
+https://killzonebot-7a7qcwcyv-geraltxeths-projects.vercel.app/api/cron
 ```
 
 ## ⚙️ Mevcut Ayarlar
 
 ### Job Details
 - **Title:** killzone-bot
-- **URL:** https://killzonebot-l154ctke6-geraltxeths-projects.vercel.app/api/cron
+- **URL:** https://killzonebot-7a7qcwcyv-geraltxeths-projects.vercel.app/api/cron
 - **Enable job:** ✅ Açık
 - **Save responses:** ❌ Kapalı
 
