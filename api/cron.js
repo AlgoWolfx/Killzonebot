@@ -79,7 +79,11 @@ async function checkAndSendKillzoneMessage() {
   console.log(`🕐 Şu anki zaman (Lizbon): ${currentHour}:${currentMinute} (${currentDay}. gün)`);
   console.log(`📅 Tam tarih: ${now.format('YYYY-MM-DD HH:mm:ss')}`);
   
-  // Test için hafta sonu kontrolü kaldırıldı
+  // Hafta içi kontrolü (1=Pazartesi, 5=Cuma)
+  if (!BOT_CONFIG.workDays.includes(currentDay)) {
+    console.log('📅 Hafta sonu - Killzone kontrolü yapılmıyor');
+    return;
+  }
   
   // Killzone zamanlarını kontrol et
   for (const [key, zone] of Object.entries(KILLZONE_TIMES)) {

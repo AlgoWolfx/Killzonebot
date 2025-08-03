@@ -31,11 +31,11 @@ https://killzonebot-fyhednwf3-geraltxeths-projects.vercel.app/api/cron
 
 | Killzone | Başlangıç | Bitiş | Uyarı (10 dk önce) |
 |----------|-----------|-------|-------------------|
-| Asia | 01:00 | 05:00 | 00:50 |
-| London | 07:00 | 10:00 | 06:50 |
-| NY AM | 14:30 | 17:00 | 14:20 |
-| NY Lunch | 17:00 | 18:00 | 16:50 |
-| NY PM | 18:30 | 21:00 | 18:20 |
+| Asia | 00:00 | 03:00 | 23:50 |
+| London | 05:00 | 08:00 | 04:50 |
+| NY AM | 12:00 | 15:00 | 11:50 |
+| NY Lunch | 13:00 | 14:00 | 12:50 |
+| NY PM | 16:00 | 19:00 | 15:50 |
 
 ## 🔔 Bildirim Ayarları
 - **Execution fails:** ❌ Kapalı

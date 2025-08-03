@@ -10,11 +10,13 @@ ICT teknikleri ile trade eden kullanıcılar için killzone zamanlarını hatır
 - ✅ Telegram komutları (`/killzones`, `/next`, `/status`)
 - ✅ NY timezone desteği
 
-## Killzone Zamanları
+## Killzone Zamanları (Lizbon Saati)
 
-- **London Killzone**: 08:00-10:00 GMT
-- **New York Killzone**: 13:00-15:00 GMT  
-- **Tokyo Killzone**: 00:00-02:00 GMT
+- **Asia Killzone**: 00:00-03:00
+- **London Killzone**: 05:00-08:00
+- **New York AM Killzone**: 12:00-15:00
+- **New York Lunch Killzone**: 13:00-14:00
+- **New York PM Killzone**: 16:00-19:00
 
 ## Kurulum
 

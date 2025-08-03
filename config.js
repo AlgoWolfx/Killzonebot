@@ -1,34 +1,34 @@
-// Killzone Zamanları (Portekiz Lizbon) - CANLI TEST ZAMANLARI
+// Killzone Zamanları (Portekiz Lizbon) - ICT GERÇEK ZAMANLAR
 const KILLZONE_TIMES = {
-  // Canlı test zamanları - Şu anki saat 17:48'e göre güncellendi
-  test_now: {
-    name: "Test Şimdi",
-    start: "17:49",
-    end: "17:51",
+  // New York saatinden Lizbon saatine çevrilmiş ICT killzone zamanları (killzone.txt'e göre)
+  asia_killzone: {
+    name: "Asia Killzone",
+    start: "00:00",
+    end: "03:00",
     timezone: "Europe/Lisbon"
   },
-  test_1min: {
-    name: "Test 1 Dakika",
-    start: "17:50",
-    end: "17:52",
+  london_killzone: {
+    name: "London Killzone", 
+    start: "05:00",
+    end: "08:00",
     timezone: "Europe/Lisbon"
   },
-  test_2min: {
-    name: "Test 2 Dakika",
-    start: "17:51",
-    end: "17:53",
+  ny_am_killzone: {
+    name: "New York AM Killzone",
+    start: "12:00",
+    end: "15:00", 
     timezone: "Europe/Lisbon"
   },
-  test_5min: {
-    name: "Test 5 Dakika",
-    start: "17:54",
-    end: "17:56",
+  ny_lunch_killzone: {
+    name: "New York Lunch Killzone",
+    start: "13:00",
+    end: "14:00",
     timezone: "Europe/Lisbon"
   },
-  test_10min: {
-    name: "Test 10 Dakika",
-    start: "17:59",
-    end: "18:01",
+  ny_pm_killzone: {
+    name: "New York PM Killzone", 
+    start: "16:00",
+    end: "19:00",
     timezone: "Europe/Lisbon"
   }
 };
@@ -37,7 +37,7 @@ const KILLZONE_TIMES = {
 const BOT_CONFIG = {
   timezone: "Europe/Lisbon",
   warningMinutes: 10, // 10 dakika öncesi uyarı
-  workDays: [0, 1, 2, 3, 4, 5, 6], // Hafta sonu dahil (test için)
+  workDays: [1, 2, 3, 4, 5], // Pazartesi-Cuma (hafta içi)
   retryAttempts: 3
 };
 
