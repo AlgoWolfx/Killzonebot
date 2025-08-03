@@ -12,11 +12,12 @@ ICT teknikleri ile trade eden kullanıcılar için killzone zamanlarını hatır
 
 ## Killzone Zamanları (Lizbon Saati)
 
-- **Asia Killzone**: 00:00-03:00
-- **London Killzone**: 05:00-08:00
-- **New York AM Killzone**: 12:00-15:00
-- **New York Lunch Killzone**: 13:00-14:00
-- **New York PM Killzone**: 16:00-19:00
+- **Asia**: 01:00-05:00
+- **London**: 07:00-10:00
+- **NY AM**: 14:30-17:00
+- **NY Lunch**: 17:00-18:00
+- **NY PM**: 18:30-21:00
+
 
 ## Kurulum
 

@@ -1,34 +1,34 @@
 // Killzone Zamanları (Portekiz Lizbon) - ICT GERÇEK ZAMANLAR
 const KILLZONE_TIMES = {
-  // New York saatinden Lizbon saatine çevrilmiş ICT killzone zamanları (killzone.txt'e göre)
-  asia_killzone: {
-    name: "Asia Killzone",
-    start: "00:00",
-    end: "03:00",
+  // killzone_table.md'deki saatlere göre ayarlandı
+  asia: {
+    name: "Asia",
+    start: "01:00",
+    end: "05:00",
     timezone: "Europe/Lisbon"
   },
-  london_killzone: {
-    name: "London Killzone", 
-    start: "05:00",
-    end: "08:00",
+  london: {
+    name: "London", 
+    start: "07:00",
+    end: "10:00",
     timezone: "Europe/Lisbon"
   },
-  ny_am_killzone: {
-    name: "New York AM Killzone",
-    start: "12:00",
-    end: "15:00", 
+  ny_am: {
+    name: "NY AM",
+    start: "14:30",
+    end: "17:00", 
     timezone: "Europe/Lisbon"
   },
-  ny_lunch_killzone: {
-    name: "New York Lunch Killzone",
-    start: "13:00",
-    end: "14:00",
+  ny_lunch: {
+    name: "NY Lunch",
+    start: "17:00",
+    end: "18:00",
     timezone: "Europe/Lisbon"
   },
-  ny_pm_killzone: {
-    name: "New York PM Killzone", 
-    start: "16:00",
-    end: "19:00",
+  ny_pm: {
+    name: "NY PM", 
+    start: "18:30",
+    end: "21:00",
     timezone: "Europe/Lisbon"
   }
 };

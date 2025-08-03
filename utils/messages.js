@@ -5,17 +5,17 @@ const { KILLZONE_TIMES } = require('../config');
 function getKillzoneStartMessage(timezone, currentTime) {
   const time = moment(currentTime).tz('Europe/Lisbon').format('HH:mm');
   
-  return `🚨 KILLZONE BAŞLADI! 🚨
+  return `🚨 ${timezone.toUpperCase()} BAŞLADI HABERİN OLSUN HA! 🚨
 
 ⏰ Saat: ${time} (Lisbon Time)
-🌍 Zaman Dilimi: ${timezone}
+🌍 Session: ${timezone}
 
 ⚠️ ICT Killzone aktif!
 📊 Trade fırsatları için hazır olun
 💰 Risk yönetimi önemli!`;
 }
 
-// 5 dakika öncesi uyarı mesajı (Portekiz için)
+// 10 dakika öncesi uyarı mesajı (Portekiz için)
 function getWarningMessage(timezone, startTime) {
   // startTime format düzeltmesi (HH:MM formatını doğru şekilde parse et)
   const [hours, minutes] = startTime.split(':').map(Number);
@@ -23,9 +23,9 @@ function getWarningMessage(timezone, startTime) {
   const timeDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes);
   const time = moment(timeDate).tz('Europe/Lisbon').format('HH:mm');
   
-  return `⚠️ KILLZONE YAKLAŞIYOR! ⚠️
+  return `⚠️ ${timezone.toUpperCase()} YAKLAŞIYOR HABERİN OLSUN! ⚠️
 
-⏰ ${timezone} Killzone başlamasına 10 dakika
+⏰ ${timezone} başlamasına 10 dakika
 🕐 Başlangıç: ${time} (Lisbon Time)
 
 📱 Hazırlık yapın!`;
