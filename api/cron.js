@@ -107,8 +107,8 @@ async function checkAndSendKillzoneMessage() {
     
     console.log(`   Başlangıca kalan dakika: ${timeToStart}`);
     
-    // Uyarı zamanı kontrolü - tam eşleşme yerine 2 dakika aralık
-    if (Math.abs(currentHour - warningHour) <= 1 && Math.abs((currentHour * 60 + currentMinute) - (warningHour * 60 + adjustedWarningMinute)) <= 2) {
+    // Uyarı zamanı kontrolü - TAM EŞLEŞme (aşırı mesaj önleme)
+    if (currentHour === warningHour && currentMinute === adjustedWarningMinute) {
       console.log(`⚠️  ${zone.name} 10 dakika uyarısı gönderiliyor...`);
       const message = getWarningMessage(zone.name, zone.start);
       const sent = await sendTelegramMessage(message);
@@ -119,8 +119,8 @@ async function checkAndSendKillzoneMessage() {
       }
     }
     
-    // Killzone başlangıç mesajı kontrolü - tam eşleşme yerine 2 dakika aralık
-    if (Math.abs(currentHour - startHour) <= 1 && Math.abs((currentHour * 60 + currentMinute) - (startHour * 60 + startMinute)) <= 2) {
+    // Killzone başlangıç mesajı kontrolü - TAM EŞLEŞme (aşırı mesaj önleme)
+    if (currentHour === startHour && currentMinute === startMinute) {
       console.log(`🚀 ${zone.name} başlangıç mesajı gönderiliyor...`);
       const message = getKillzoneStartMessage(zone.name, now.format());
       const sent = await sendTelegramMessage(message);
