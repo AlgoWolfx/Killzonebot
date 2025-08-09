@@ -17,11 +17,8 @@ function getKillzoneStartMessage(timezone, currentTime) {
 
 // 10 dakika öncesi uyarı mesajı (Portekiz için)
 function getWarningMessage(timezone, startTime) {
-  // startTime format düzeltmesi (HH:MM formatını doğru şekilde parse et)
-  const [hours, minutes] = startTime.split(':').map(Number);
-  const today = new Date();
-  const timeDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes);
-  const time = moment(timeDate).tz('Europe/Lisbon').format('HH:mm');
+  // Saat bilgisini doğrudan Lisbon timezone'unda parse et (DST hatasını önler)
+  const time = moment.tz(startTime, 'HH:mm', 'Europe/Lisbon').format('HH:mm');
   
   return `⚠️ ${timezone.toUpperCase()} YAKLAŞIYOR HABERİN OLSUN! ⚠️
 

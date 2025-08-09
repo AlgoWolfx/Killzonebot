@@ -1,1 +1,36 @@
-KillzoneBaşlangıçBitişUyarı (10 dk önce)Asia Killzone01:0005:0000:50London Killzone07:0010:0006:50NY AM Killzone14:3017:0014:20NY Lunch Killzone17:0018:0016:50NY PM Killzone18:3021:0018:20
+YAZDIKLARIMIN HEPSİ NEWYORK SAATİNE GÖRE BUNLAR LİZBON SAATİNE GÖRE DEĞİŞECEK SADECE SAATLER
+
+BU SAATLER ASLA VE ASLA DEĞİŞTİRİLMEYECEK SİLİNMEYECEK KODLARA ENTEGRE EDİLECEK
+
+
+PORTEKİZ YAZ VE KIŞ SAATLERİNE GÖRE DÜZENLENEBİLİR BU BİLE OTOMATİK OLACAK BEN GİRİP DÜZENLEMEYECEĞİM
+
+
+
+Asia
+Başlangıç =  20:00
+Bitiş = 00.00
+Uyarı = 19.50
+
+London 
+Başlangıç = 02:00
+Bitiş = 05.00
+Uyarı = 01.50
+
+Newyork AM 
+Başlangıç = 09:30
+Bitiş = 12.00
+Uyarı = 09.20
+
+New York Lunch 
+Başlangıç = 12:00
+Bitiş = 13.00
+Uyarı = 11.50
+
+Newyork PM
+Başlangıç = 13:30
+Bitiş = 16.00
+Uyarı = 13.20
+
+
+Telegramda komutlarda saat gösterimi doğru çalışmalı 
