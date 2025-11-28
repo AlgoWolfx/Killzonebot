@@ -1,9 +1,10 @@
 const axios = require('axios');
 const moment = require('moment-timezone');
-const { KILLZONE_TIMES, BOT_CONFIG } = require('../config');
+const { KILLZONE_TIMES, MACRO_TIMES, BOT_CONFIG } = require('../config');
 const { 
   getKillzoneStartMessage, 
-  getWarningMessage
+  getWarningMessage,
+  getMacroMessage
 } = require('../utils/messages');
 
 // Telegram mesaj gönderme fonksiyonu
@@ -66,6 +67,38 @@ async function sendTelegramMessage(message) {
     }
     
     return false;
+  }
+}
+
+// Macro kontrolü ve mesaj gönderme
+async function checkAndSendMacroMessage() {
+  const now = moment().tz('Europe/Lisbon'); // Portekiz Lizbon saati
+  const currentHour = now.hour();
+  const currentMinute = now.minute();
+  const currentDay = now.day(); // 0=Pazar, 1=Pazartesi
+  
+  // Hafta içi kontrolü (1=Pazartesi, 5=Cuma)
+  if (!BOT_CONFIG.workDays.includes(currentDay)) {
+    return;
+  }
+  
+  // Tüm macro zamanlarını kontrol et
+  for (const [sessionKey, macroList] of Object.entries(MACRO_TIMES)) {
+    for (const macro of macroList) {
+      const [macroHour, macroMinute] = macro.time.split(':').map(Number);
+      
+      // Tam saat eşleşmesi kontrolü
+      if (currentHour === macroHour && currentMinute === macroMinute) {
+        console.log(`📊 ${macro.label} zamanı: ${macro.time}`);
+        const message = getMacroMessage(macro.label, macro.time);
+        const sent = await sendTelegramMessage(message);
+        if (sent) {
+          console.log(`✅ ${macro.label} mesajı gönderildi: ${macro.time}`);
+        } else {
+          console.log(`❌ ${macro.label} mesajı gönderilemedi: ${macro.time}`);
+        }
+      }
+    }
   }
 }
 
@@ -133,15 +166,66 @@ async function checkAndSendKillzoneMessage() {
   }
 }
 
+// Test modu - Belirli bir macro zamanını test et
+async function testMacroTime(testTime) {
+  const [testHour, testMinute] = testTime.split(':').map(Number);
+  
+  // Tüm macro zamanlarında ara
+  for (const [sessionKey, macroList] of Object.entries(MACRO_TIMES)) {
+    for (const macro of macroList) {
+      const [macroHour, macroMinute] = macro.time.split(':').map(Number);
+      if (macroHour === testHour && macroMinute === testMinute) {
+        console.log(`🧪 TEST: ${macro.label} zamanı: ${macro.time}`);
+        const message = getMacroMessage(macro.label, macro.time);
+        const sent = await sendTelegramMessage(message);
+        return {
+          found: true,
+          macro: macro,
+          message: message,
+          sent: sent
+        };
+      }
+    }
+  }
+  
+  return { found: false };
+}
+
 // Vercel serverless function
 module.exports = async (req, res) => {
   try {
+    // Test modu kontrolü
+    const { test, time } = req.query;
+    
+    if (test === 'macro' && time) {
+      console.log('🧪 TEST MODU: Macro test ediliyor...');
+      const result = await testMacroTime(time);
+      
+      if (result.found) {
+        return res.status(200).json({
+          success: true,
+          test: true,
+          message: 'Test mesajı gönderildi',
+          macro: result.macro,
+          telegramSent: result.sent,
+          testMessage: result.message
+        });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: `Zaman ${time} için macro bulunamadı`
+        });
+      }
+    }
+    
+    // Normal cron job
     console.log('🔄 Cron job başlatılıyor...');
     await checkAndSendKillzoneMessage();
+    await checkAndSendMacroMessage();
     console.log('✅ Cron job tamamlandı');
     res.status(200).json({ 
       success: true, 
-      message: 'Killzone kontrolü tamamlandı',
+      message: 'Killzone ve Macro kontrolü tamamlandı',
       timestamp: moment().tz('Europe/Lisbon').format()
     });
   } catch (error) {

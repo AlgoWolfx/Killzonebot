@@ -108,10 +108,18 @@ function getStatusMessage() {
 📱 Mesajlar otomatik gönderiliyor`;
 }
 
+// Macro zamanı mesajı
+function getMacroMessage(label, time) {
+  const formattedTime = moment.tz(time, 'HH:mm', 'Europe/Lisbon').format('HH:mm');
+  
+  return `📊 ${label}: ${formattedTime}`;
+}
+
 module.exports = {
   getKillzoneStartMessage,
   getWarningMessage,
   getAllKillzonesMessage,
   getNextKillzoneMessage,
-  getStatusMessage
+  getStatusMessage,
+  getMacroMessage
 }; 
