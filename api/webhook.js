@@ -2,7 +2,8 @@ const axios = require('axios');
 const { 
   getAllKillzonesMessage, 
   getNextKillzoneMessage, 
-  getStatusMessage 
+  getStatusMessage,
+  getAllMacrosMessage
 } = require('../utils/messages');
 
 // Telegram mesaj gönderme fonksiyonu
@@ -74,15 +75,20 @@ async function handleCommand(chatId, command) {
       message = getStatusMessage();
       break;
       
+    case '/macros':
+      message = getAllMacrosMessage();
+      break;
+      
     case '/start':
       message = `🤖 Welcome to Killzone Bot!
 
 📋 Available commands:
 /killzones - Show all killzone times
+/macros - Show all macro times
 /next - Show next killzone time
 /status - Check bot status
 
-⚠️ Bot will automatically send you messages during killzone times.`;
+⚠️ Bot will automatically send you messages during killzone and macro times.`;
       break;
       
     default:
@@ -90,6 +96,7 @@ async function handleCommand(chatId, command) {
 
 📋 Available commands:
 /killzones - Show all killzone times
+/macros - Show all macro times
 /next - Show next killzone time
 /status - Check bot status`;
   }
@@ -137,6 +144,7 @@ module.exports = async (req, res) => {
 
 📋 Available commands:
 /killzones - Show all killzone times
+/macros - Show all macro times
 /next - Show next killzone time
 /status - Check bot status`);
     }

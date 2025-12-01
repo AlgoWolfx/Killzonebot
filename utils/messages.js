@@ -1,5 +1,5 @@
 const moment = require('moment-timezone');
-const { KILLZONE_TIMES } = require('../config');
+const { KILLZONE_TIMES, MACRO_TIMES } = require('../config');
 
 // Killzone başlangıç mesajı
 function getKillzoneStartMessage(timezone, currentTime) {
@@ -108,11 +108,147 @@ function getStatusMessage() {
 📱 Mesajlar otomatik gönderiliyor`;
 }
 
+// Tüm macro zamanlarını listele
+function getAllMacrosMessage() {
+  let message = `📊 MACRO ZAMANLARI (Lizbon Saati) 📊\n\n`;
+  
+  // London Macro'ları (Asia seansı içinde)
+  if (MACRO_TIMES.london && MACRO_TIMES.london.length > 0) {
+    message += `🇬🇧 LONDON MACRO (Asia Seansı İçinde)\n`;
+    MACRO_TIMES.london.forEach(macro => {
+      message += `   ⏰ ${macro.time} - ${macro.label}\n`;
+    });
+    message += `\n`;
+  }
+  
+  // Asia Macro'ları (NY PM seansı içinde)
+  if (MACRO_TIMES.ny_pm && MACRO_TIMES.ny_pm.length > 0) {
+    message += `🌏 ASIA MACRO (NY PM Seansı İçinde)\n`;
+    MACRO_TIMES.ny_pm.forEach(macro => {
+      message += `   ⏰ ${macro.time} - ${macro.label}\n`;
+    });
+    message += `\n`;
+  }
+  
+  // Newyork Macro'ları
+  if (MACRO_TIMES.newyork && MACRO_TIMES.newyork.length > 0) {
+    message += `📈 NEWYORK MACRO'LAR\n`;
+    
+    // Özel durumlar (Hazırlıkta, Açılıyor)
+    const specialMacros = MACRO_TIMES.newyork.filter(m => 
+      m.label.includes('Hazırlıkta') || m.label.includes('Açılıyor')
+    );
+    if (specialMacros.length > 0) {
+      specialMacros.forEach(macro => {
+        message += `   ⏰ ${macro.time} - ${macro.label}\n`;
+      });
+      message += `\n`;
+    }
+    
+    // Normal Newyork Macro'lar
+    const normalMacros = MACRO_TIMES.newyork.filter(m => 
+      m.label === 'Newyork Macro'
+    );
+    if (normalMacros.length > 0) {
+      message += `   📊 Newyork Macro:\n`;
+      normalMacros.forEach(macro => {
+        message += `      ${macro.time}\n`;
+      });
+      message += `\n`;
+    }
+    
+    // Lunch Macro'lar
+    const lunchMacros = MACRO_TIMES.newyork.filter(m => 
+      m.label.includes('Lunch Macro')
+    );
+    if (lunchMacros.length > 0) {
+      message += `   🍽️ Newyork Lunch Macro:\n`;
+      lunchMacros.forEach(macro => {
+        message += `      ${macro.time}\n`;
+      });
+      message += `\n`;
+    }
+    
+    // PM Macro'lar
+    const pmMacros = MACRO_TIMES.newyork.filter(m => 
+      m.label.includes('PM Macro')
+    );
+    if (pmMacros.length > 0) {
+      message += `   🌆 Newyork PM Macro:\n`;
+      pmMacros.forEach(macro => {
+        message += `      ${macro.time}\n`;
+      });
+      message += `\n`;
+    }
+  }
+  
+  message += `📍 Timezone: Europe/Lisbon\n`;
+  message += `📅 Aktif: Pazartesi-Cuma\n`;
+  message += `\n💡 Bot otomatik olarak macro zamanlarında bildirim gönderir!`;
+  
+  return message;
+}
+
 // Macro zamanı mesajı
 function getMacroMessage(label, time) {
   const formattedTime = moment.tz(time, 'HH:mm', 'Europe/Lisbon').format('HH:mm');
   
-  return `📊 ${label}: ${formattedTime}`;
+  // Macro türüne göre seans adını belirle
+  let sessionName = '';
+  let emoji = '📊';
+  let actionText = 'Macro zamanı aktif!';
+  
+  if (label.includes('Asia Macro')) {
+    sessionName = 'NY PM';
+    emoji = '🌏';
+    actionText = 'Asia Macro zamanı!';
+  } else if (label.includes('London Macro')) {
+    sessionName = 'Asia';
+    emoji = '🇬🇧';
+    actionText = 'London Macro zamanı!';
+  } else if (label.includes('Lunch Macro')) {
+    sessionName = 'NY Lunch';
+    emoji = '🍽️';
+    actionText = 'Lunch Macro zamanı!';
+  } else if (label.includes('PM Macro')) {
+    sessionName = 'NY PM';
+    emoji = '🌆';
+    actionText = 'PM Macro zamanı!';
+  } else if (label.includes('Hazırlıkta')) {
+    sessionName = 'London';
+    emoji = '⏳';
+    actionText = 'Newyork seansı hazırlanıyor!';
+  } else if (label.includes('Açılıyor')) {
+    sessionName = 'London';
+    emoji = '🚀';
+    actionText = 'Newyork seansı açılıyor!';
+  } else if (label.includes('Newyork Macro')) {
+    sessionName = 'Newyork';
+    emoji = '📈';
+    actionText = 'Newyork Macro zamanı!';
+  }
+  
+  // Özel durumlar için farklı format
+  if (label.includes('Hazırlıkta') || label.includes('Açılıyor')) {
+    return `${emoji} ${label.toUpperCase()} ${emoji}
+
+⏰ Saat: ${formattedTime} (Lisbon Time)
+🌍 Session: ${sessionName}
+
+⚠️ ${actionText}
+📊 Trade fırsatları için hazır olun
+💰 Risk yönetimi önemli!`;
+  }
+  
+  // Normal macro mesajları
+  return `${emoji} ${label.toUpperCase()} ZAMANI ${emoji}
+
+⏰ Saat: ${formattedTime} (Lisbon Time)
+🌍 Session: ${sessionName}
+
+⚠️ ${actionText}
+📈 Trade fırsatları için hazır olun
+💰 Risk yönetimi önemli!`;
 }
 
 module.exports = {
@@ -121,5 +257,6 @@ module.exports = {
   getAllKillzonesMessage,
   getNextKillzoneMessage,
   getStatusMessage,
-  getMacroMessage
+  getMacroMessage,
+  getAllMacrosMessage
 }; 
