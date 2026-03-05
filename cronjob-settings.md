@@ -27,15 +27,17 @@ https://killzonebot-mkwr02dfy-geraltxeths-projects.vercel.app/api/cron
 * * * * * (her dakika)
 ```
 
-## 📅 Killzone Zamanları (Portekiz Saati)
+## 📅 Killzone Zamanları (New York / ET)
+
+Sistem **America/New_York** saatine göre çalışır. Tüm bildirimler bu saat dilimine göre tetiklenir.
 
 | Killzone | Başlangıç | Bitiş | Uyarı (10 dk önce) |
 |----------|-----------|-------|-------------------|
-| Asia | 01:00 | 05:00 | 00:50 |
-| London | 07:00 | 10:00 | 06:50 |
-| NY AM | 14:30 | 17:00 | 14:20 |
-| NY Lunch | 17:00 | 18:00 | 16:50 |
-| NY PM | 18:30 | 21:00 | 18:20 |
+| Asia | 20:00 | 00:00 | 19:50 |
+| London | 02:00 | 05:00 | 01:50 |
+| NY AM | 09:30 | 12:00 | 09:20 |
+| NY Lunch | 12:00 | 13:00 | 11:50 |
+| NY PM | 13:30 | 16:00 | 13:20 |
 
 ## 🔔 Bildirim Ayarları
 - **Execution fails:** ❌ Kapalı
@@ -43,7 +45,8 @@ https://killzonebot-mkwr02dfy-geraltxeths-projects.vercel.app/api/cron
 - **Too many failures:** ✅ Açık
 
 ## 🌍 Gelişmiş Ayarlar
-- **Timezone:** Europe/Lisbon
+- **Logic timezone:** America/New_York (api/cron.js içinde kullanılır)
+- **Cronjob.org timezone:** Europe/Lisbon (tetikleme – değiştirilmedi)
 - **Request method:** GET
 - **Timeout:** 30 saniye
 - **Treat redirects as success:** ✅ Açık

@@ -38,7 +38,7 @@ async function sendTelegramMessage(message) {
 module.exports = async (req, res) => {
   try {
     const { action, time } = req.query;
-    const now = moment().tz('Europe/Lisbon');
+    const now = moment().tz('America/New_York');
     
     // Tüm macro zamanlarını listele
     if (action === 'list') {

@@ -261,41 +261,23 @@ function render() {
 
 render();
 
-// Static killzone times (Portugal time only)
+// Static killzone times (New York / ET)
 (() => {
   const killzones = [
-    {
-      title: 'Asia Killzone',
-      start: '01:00',
-      end: '05:00'
-    },
-    {
-      title: 'London Killzone',
-      start: '07:00',
-      end: '10:00'
-    },
-    {
-      title: 'New York AM',
-      start: '14:30',
-      end: '17:00'
-    },
-    {
-      title: 'New York Lunch',
-      start: '17:00',
-      end: '18:00'
-    },
-    {
-      title: 'New York PM',
-      start: '18:30',
-      end: '21:00'
-    }
+    { title: 'Asia Killzone', start: '20:00', end: '00:00' },
+    { title: 'London Killzone', start: '02:00', end: '05:00' },
+    { title: 'New York AM', start: '09:30', end: '12:00' },
+    { title: 'New York Lunch', start: '12:00', end: '13:00' },
+    { title: 'New York PM', start: '13:30', end: '16:00' }
   ];
 
   const timesRoot = document.getElementById('times');
   if (!timesRoot) return;
 
   const now = new Date();
-  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  const nyOpts = { timeZone: 'America/New_York', hour: 'numeric', minute: 'numeric', hour12: false };
+  const [h, m] = now.toLocaleTimeString('en-US', nyOpts).split(':').map(Number);
+  const nowMinutes = h * 60 + m;
   const toMinutes = t => {
     const [hh, mm] = t.split(':').map(Number);
     return (hh * 60 + mm);
@@ -313,7 +295,7 @@ render();
   timesRoot.innerHTML = killzones.map(s => `
     <div class="time-item ${isActive(s) ? 'active' : ''}">
       <h4>${s.title}</h4>
-      <p class="time-range">${s.start} – ${s.end} PT</p>
+      <p class="time-range">${s.start} – ${s.end} ET</p>
       ${isActive(s) ? '<div class="live-badge">LIVE</div>' : ''}
     </div>
   `).join('');

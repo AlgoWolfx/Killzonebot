@@ -1,53 +1,49 @@
-// Killzone Zamanları (Portekiz Lizbon) - ICT GERÇEK ZAMANLAR
+// Killzone Zamanları (New York / ET) - killzone.txt referansı
 const KILLZONE_TIMES = {
-  // killzone_table.md'deki saatlere göre ayarlandı
   asia: {
     name: "Asia",
-    start: "01:00",
-    end: "05:00",
-    timezone: "Europe/Lisbon"
+    start: "20:00",
+    end: "00:00",
+    timezone: "America/New_York"
   },
   london: {
-    name: "London", 
-    start: "07:00",
-    end: "10:00",
-    timezone: "Europe/Lisbon"
+    name: "London",
+    start: "02:00",
+    end: "05:00",
+    timezone: "America/New_York"
   },
   ny_am: {
     name: "NY AM",
-    start: "14:30",
-    end: "17:00", 
-    timezone: "Europe/Lisbon"
+    start: "09:30",
+    end: "12:00",
+    timezone: "America/New_York"
   },
   ny_lunch: {
     name: "NY Lunch",
-    start: "17:00",
-    end: "18:00",
-    timezone: "Europe/Lisbon"
+    start: "12:00",
+    end: "13:00",
+    timezone: "America/New_York"
   },
   ny_pm: {
-    name: "NY PM", 
-    start: "18:30",
-    end: "21:00",
-    timezone: "Europe/Lisbon"
+    name: "NY PM",
+    start: "13:30",
+    end: "16:00",
+    timezone: "America/New_York"
   }
 };
 
-// Macro Zamanları (Portekiz Lizbon) - Trade Macro Bildirimleri
+// Macro Zamanları (New York / ET) - newtime.md referansı
 const MACRO_TIMES = {
-  // Asia seansı içindeki macro'lar (London macro'ları)
   london: [
     { time: "01:50", label: "London Macro" },
     { time: "02:10", label: "London Macro" },
     { time: "02:50", label: "London Macro" },
     { time: "03:10", label: "London Macro" }
   ],
-  // NY PM seansı içindeki macro'lar (Asia için macro'lar)
   ny_pm: [
     { time: "20:50", label: "Asia Macro" },
     { time: "21:10", label: "Asia Macro" }
   ],
-  // Newyork genel macro'lar (seans dışı veya özel durumlar)
   newyork: [
     { time: "07:00", label: "Newyork Hazırlıkta" },
     { time: "08:30", label: "Newyork Açılıyor" },
@@ -69,9 +65,9 @@ const MACRO_TIMES = {
 
 // Bot Konfigürasyonu
 const BOT_CONFIG = {
-  timezone: "Europe/Lisbon",
-  warningMinutes: 10, // 10 dakika öncesi uyarı
-  workDays: [1, 2, 3, 4, 5], // Pazartesi-Cuma (hafta içi)
+  timezone: "America/New_York",
+  warningMinutes: 10,
+  workDays: [1, 2, 3, 4, 5],
   retryAttempts: 3
 };
 
@@ -79,4 +75,4 @@ module.exports = {
   KILLZONE_TIMES,
   MACRO_TIMES,
   BOT_CONFIG
-}; 
+};

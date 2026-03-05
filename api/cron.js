@@ -72,7 +72,7 @@ async function sendTelegramMessage(message) {
 
 // Macro kontrolü ve mesaj gönderme
 async function checkAndSendMacroMessage() {
-  const now = moment().tz('Europe/Lisbon'); // Portekiz Lizbon saati
+  const now = moment().tz('America/New_York');
   const currentHour = now.hour();
   const currentMinute = now.minute();
   const currentDay = now.day(); // 0=Pazar, 1=Pazartesi
@@ -104,12 +104,12 @@ async function checkAndSendMacroMessage() {
 
 // Killzone kontrolü ve mesaj gönderme
 async function checkAndSendKillzoneMessage() {
-  const now = moment().tz('Europe/Lisbon'); // Portekiz Lizbon saati
+  const now = moment().tz('America/New_York');
   const currentHour = now.hour();
   const currentMinute = now.minute();
   const currentDay = now.day(); // 0=Pazar, 1=Pazartesi
   
-  console.log(`🕐 Şu anki zaman (Lizbon): ${currentHour}:${currentMinute} (${currentDay}. gün)`);
+  console.log(`🕐 Şu anki zaman (New York): ${currentHour}:${currentMinute} (${currentDay}. gün)`);
   console.log(`📅 Tam tarih: ${now.format('YYYY-MM-DD HH:mm:ss')}`);
   
   // Hafta içi kontrolü (1=Pazartesi, 5=Cuma)
@@ -226,7 +226,7 @@ module.exports = async (req, res) => {
     res.status(200).json({ 
       success: true, 
       message: 'Killzone ve Macro kontrolü tamamlandı',
-      timestamp: moment().tz('Europe/Lisbon').format()
+      timestamp: moment().tz('America/New_York').format()
     });
   } catch (error) {
     console.error('❌ Cron job hatası:', error);

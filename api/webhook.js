@@ -80,25 +80,21 @@ async function handleCommand(chatId, command) {
       break;
       
     case '/start':
-      message = `🤖 Welcome to Killzone Bot!
+      message = `Killzone Bot'a hoş geldiniz.
 
-📋 Available commands:
-/killzones - Show all killzone times
-/macros - Show all macro times
-/next - Show next killzone time
-/status - Check bot status
+Komutlar:
+/killzones – Killzone zamanları (New York saati)
+/macros – Macro zamanları
+/next – Sonraki killzone
+/status – Bot durumu
 
-⚠️ Bot will automatically send you messages during killzone and macro times.`;
+Killzone ve macro saatlerinde otomatik bildirim alacaksınız.`;
       break;
-      
-    default:
-      message = `❓ Unknown command: ${command}
 
-📋 Available commands:
-/killzones - Show all killzone times
-/macros - Show all macro times
-/next - Show next killzone time
-/status - Check bot status`;
+    default:
+      message = `Bilinmeyen komut: ${command}
+
+Komutlar: /killzones, /macros, /next, /status`;
   }
   
   await sendTelegramMessage(chatId, message);
@@ -140,13 +136,7 @@ module.exports = async (req, res) => {
       await handleCommand(chatId, text);
     } else {
       // Normal mesaj için yardım
-      await sendTelegramMessage(chatId, `💬 Hello! 
-
-📋 Available commands:
-/killzones - Show all killzone times
-/macros - Show all macro times
-/next - Show next killzone time
-/status - Check bot status`);
+      await sendTelegramMessage(chatId, `Merhaba. Komutlar: /killzones, /macros, /next, /status`);
     }
     
     res.status(200).json({ success: true });

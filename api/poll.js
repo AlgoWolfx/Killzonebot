@@ -2,7 +2,8 @@ const axios = require('axios');
 const { 
   getAllKillzonesMessage, 
   getNextKillzoneMessage, 
-  getStatusMessage 
+  getStatusMessage,
+  getAllMacrosMessage
 } = require('../utils/messages');
 
 // Telegram mesaj gönderme fonksiyonu
@@ -40,25 +41,27 @@ async function handleCommand(chatId, command) {
     case '/status':
       message = getStatusMessage();
       break;
-      
-    case '/start':
-      message = `🤖 Killzone Bot'a hoş geldiniz!
 
-📋 Kullanılabilir komutlar:
-/killzones - Tüm killzone zamanlarını göster
-/next - Sonraki killzone zamanını göster
-/status - Bot durumunu kontrol et
-
-⚠️ Bot otomatik olarak killzone zamanlarında size mesaj gönderecek.`;
+    case '/macros':
+      message = getAllMacrosMessage();
       break;
-      
-    default:
-      message = `❓ Bilinmeyen komut: ${command}
 
-📋 Kullanılabilir komutlar:
-/killzones - Tüm killzone zamanlarını göster
-/next - Sonraki killzone zamanını göster
-/status - Bot durumunu kontrol et`;
+    case '/start':
+      message = `Killzone Bot'a hoş geldiniz.
+
+Komutlar:
+/killzones – Killzone zamanları (New York saati)
+/macros – Macro zamanları
+/next – Sonraki killzone
+/status – Bot durumu
+
+Killzone ve macro saatlerinde otomatik bildirim alacaksınız.`;
+      break;
+
+    default:
+      message = `Bilinmeyen komut: ${command}
+
+Komutlar: /killzones, /macros, /next, /status`;
   }
   
   await sendTelegramMessage(chatId, message);
@@ -101,12 +104,7 @@ module.exports = async (req, res) => {
             await handleCommand(chatId, text);
           } else {
             // Normal mesaj için yardım
-            await sendTelegramMessage(chatId, `💬 Merhaba! 
-
-📋 Kullanılabilir komutlar:
-/killzones - Tüm killzone zamanlarını göster
-/next - Sonraki killzone zamanını göster
-/status - Bot durumunu kontrol et`);
+            await sendTelegramMessage(chatId, `Merhaba. Komutlar: /killzones, /macros, /next, /status`);
           }
         }
       }
